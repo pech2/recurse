@@ -52,5 +52,26 @@ while output[0] != 4:
     guess = pruned_combos.pop()
     output = m.check_guess("".join(guess))
     combos = pruned_combos
-    turn += 1
+    
+    guess = pruned_combos.pop()
+    worst_response_scores = Counter()
+    for combo in product("123456", repeat=4):
+        combo = ''.join(combo)
+        for black in range(5):
+            for white in range(5):
+                if black + white > 4:
+                    continue
+                current_response = 0
+                for possible_combo in pruned_combos:
+                    response = check_two(combo, possible_combo)
+                    if response[0] >= black and response[1] >= white:
+                        current_response += 1
+                        worst_response_scores[combo] = max(worst_response_scores[combo], current_response)
+    min_response_score = min(worst_response_scores.values())
+    possible_guesses = [guess for guess in worst_response_scores.keys() if worst_response_scores[guess] == min_response_score]
+    for possible_guess in possible_guesses:
+        if possible_guess in combos:
+            guess = possible_guess
+            continue
+    guess = possible_guesses.pop()
 print("Won in turn", turn, "Answer", guess)
