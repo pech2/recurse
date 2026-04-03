@@ -58,10 +58,7 @@ def minimax_guess(m: Mastermind) -> int:
         print("Turn", turn, "Guess", guess, "Output", output)
 
         # Which check every remaining possible guess to exactly match the response against the guess we made.
-        #
-        # We make an exact match because say we have a potential guess 1123. It would match 1122 with 3 black black pegs.
-        # If our response for guess 1122 was 2 black pegs we can remove potential guess 1123 even though it has at least the same response with 1 more black peg.
-        # Consider if we guessed 1123 instead. Since 1123 and 1122 match in the first 3 positions, we know that the
+        # Match exactly because anything else will not result in an possible answer.
         pruned_combos = set()
         for combo in combos:
             if output == check_two(guess, combo):
