@@ -35,6 +35,8 @@ def check_two(guess: Iterable[str], combo: Iterable[str]):
 def minimax_guess(m: Mastermind) -> int:
     """Guess the answer in Mastermind using Knuth's Minimax algorithm
 
+    For each guess, we want to choose the least worst guess to maximize our outcome success.
+
     1. Start with guess 1122 which has the best outcome and get a certain response (a combination of black and white pegs).
     2. For each guess we keep track of remaining possible guesses and prune what's possible after each guess.
         a. Prune by keeping only possible guesses that match each guess response.
@@ -68,6 +70,8 @@ def minimax_guess(m: Mastermind) -> int:
         )
         combos = pruned_combos
 
+        # Simulate every guess with every possible responses and keep track of the worst response for each guess.
+        # The worst response is the largest amount of possible guesses remaining after making that guess.
         worst_response_scores = Counter()
         for combo in product("123456", repeat=4):
             combo_responses = Counter()
@@ -76,6 +80,7 @@ def minimax_guess(m: Mastermind) -> int:
                 combo_responses[response] += 1
             worst_response_scores[combo] = max(combo_responses.values())
 
+        # Choose the best guess of these scores
         min_response_score = min(worst_response_scores.values())
         possible_guesses = [
             guess
@@ -84,12 +89,14 @@ def minimax_guess(m: Mastermind) -> int:
         ]
         possible_guesses.sort()
 
+        # If there are more than one best guess we choose a guess that might result in a win.
         next_guess = None
         for possible_guess in possible_guesses:
             if possible_guess in combos:
                 next_guess = possible_guess
                 break
 
+        # If there are no guesses that could win, we choose the lowest sorted guess for determinism.
         if not next_guess:
             next_guess = possible_guesses[0]
 
