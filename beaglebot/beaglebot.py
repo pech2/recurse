@@ -19,12 +19,12 @@ def check_group_membership(client, target_group_name, target_emails, notify_emai
 
     target_group = None
     for group in groups_result["user_groups"]:
-        if group["name"] == target_group_name:
+        if group["name"] == "Currently at the hub":
             target_group = group
             break
 
     if not target_group:
-        print(f"Group '{target_group_name}' not found.")
+        print("Group 'Currently at the hub' not found.")
         return
 
     group_members = set(target_group["members"])
@@ -36,7 +36,7 @@ def check_group_membership(client, target_group_name, target_emails, notify_emai
             found_users.append(email)
 
     if found_users:
-        content = f"**Group Check Alert:**\nThe following users are currently in the **{target_group_name}** group:\n"
+        content = f"**Group Check Alert:**\nThe following users in **{target_group_name}** group are at the hub:\n"
         content += "\n".join([f"- {email}" for email in found_users])
 
         request = {"type": "private", "to": [notify_email], "content": content}
@@ -47,7 +47,7 @@ def check_group_membership(client, target_group_name, target_emails, notify_emai
         else:
             print(f"Failed to send DM: {response.get('msg')}")
     else:
-        print(f"None of the specified users are in '{target_group_name}'.")
+        print(f"None of the specified users in '{target_group_name}' are at the hub.")
 
 
 if __name__ == "__main__":
