@@ -1,0 +1,8 @@
+{
+    "notify_email": "example@email.com",
+    "groups_to_check": {
+        "Example group": [
+            "example_user@email.com
+        ]
+    }
+}
