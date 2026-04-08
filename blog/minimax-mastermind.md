@@ -2,7 +2,9 @@
 
 ## The Game
 
-Mastermind is a guessing game where one player chooses a series of 4 colors from 6 colors. The other player makes a guess and is told whether they have a matching color in the right position with a number of black pegs and a matching color in the wrong position with a number of white pegs. They have 10 guesses to try to win.
+Mastermind is a game played by a codemaker and a codebreaker. The codemaker creates a code hidden from the codebreaker made up of an order of 4 colored pegs. The codebreaker makes up to 10 guesses by choosing a code. The guess will result in a number of black pegs if the guess code has a match with the same color in the same position and a number of white pegs if the code has a match with the same color in the wrong position.
+
+example
 
 ## An Approach
 
