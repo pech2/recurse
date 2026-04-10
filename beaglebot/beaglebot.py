@@ -1,6 +1,6 @@
 import json
 from time import sleep
-
+from datetime import datetime
 import zulip
 
 
@@ -66,6 +66,11 @@ if __name__ == "__main__":
     notify_email = config.get("notify_email")
     groups = config.get("groups_to_check", {})
 
+    now = datetime.now()
+    now_formatted = now.strftime("%Y-%m-%d %I:%M %p")
+    
+    print(f"{now_formatted}: Starting script")
     for group_name, users_to_find in groups.items():
         print(f"Checking group: {group_name}...")
         check_group_membership(client, group_name, users_to_find, notify_email)
+
