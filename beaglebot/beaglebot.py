@@ -1,6 +1,7 @@
 import json
-from time import sleep
 from datetime import datetime
+from time import sleep
+
 import zulip
 
 
@@ -68,9 +69,8 @@ if __name__ == "__main__":
 
     now = datetime.now()
     now_formatted = now.strftime("%Y-%m-%d %I:%M %p")
-    
-    print(f"{now_formatted}: Starting script")
+
+    print(f"{now_formatted}: Starting")
     for group_name, users_to_find in groups.items():
         print(f"Checking group: {group_name}...")
         check_group_membership(client, group_name, users_to_find, notify_email)
-
