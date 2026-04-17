@@ -1,0 +1,5 @@
+[[language]]
+name = "rust"
+auto-format = true
+# This ensures formatting works even for individual exercise files
+formatter = { command = "rustfmt", args = ["--emit", "stdout"] }
