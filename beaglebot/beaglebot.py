@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from time import sleep
 
 import zulip
@@ -48,6 +49,9 @@ def check_group_membership(client, target_group_name, target_emails, notify_emai
             print(f"Failed to send DM: {response.get('msg')}")
     else:
         print(f"None of the specified users in '{target_group_name}' are at the hub.")
+        print("Users currently at the hub:")
+        for email in found_users:
+            print(f"- {email}")
 
 
 if __name__ == "__main__":
@@ -66,6 +70,10 @@ if __name__ == "__main__":
     notify_email = config.get("notify_email")
     groups = config.get("groups_to_check", {})
 
+    now = datetime.now()
+    now_formatted = now.strftime("%Y-%m-%d %I:%M %p")
+
+    print(f"{now_formatted}")
     for group_name, users_to_find in groups.items():
         print(f"Checking group: {group_name}...")
         check_group_membership(client, group_name, users_to_find, notify_email)
